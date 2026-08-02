@@ -8,10 +8,32 @@ It's a single React component with **self-contained styling** (scoped `<style>` 
 the Kendall palette, light & dark), so it looks identical in every app regardless
 of that app's own CSS/Tailwind. Product URLs are built in (overridable).
 
-## Install (each app is a separate deployment → git dependency)
+## Install (published to GitHub Packages)
+
+This package is published to the private **GitHub Packages** registry under the
+`@kendall` scope. Each consuming app needs an `.npmrc` pointing the scope at that
+registry, plus a token with `read:packages` in its build environment:
+
+```ini
+# .npmrc
+@kendall:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+```
 
 ```bash
-npm install github:kendallproject/kendall-home
+npm install @kendall/home
+```
+
+Do **not** install it as a raw GitHub tarball (`github:…/archive/<sha>.tar.gz`) —
+that has no real version, breaks builds when GitHub is unavailable, and silently
+drifts. Pin a semver version instead.
+
+### Publishing a new version
+
+Bump `version` in `package.json`, then push a matching tag — CI publishes it:
+
+```bash
+git tag v0.2.0 && git push origin v0.2.0
 ```
 
 Because the package ships TypeScript source, tell Next to transpile it —

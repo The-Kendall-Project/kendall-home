@@ -1,0 +1,38 @@
+name: Publish @kendall/home
+
+# Publishes the package to GitHub Packages when a semver tag is pushed, e.g.:
+#   git tag v0.2.0 && git push origin v0.2.0
+# CI's built-in GITHUB_TOKEN is granted packages:write below, so no personal
+# access token is needed to publish.
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+          scope: "@kendall"
+
+      - name: Verify tag matches package.json version
+        run: |
+          PKG_VERSION="v$(jq -r .version package.json)"
+          if [ "$PKG_VERSION" != "${GITHUB_REF_NAME}" ]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match package.json version ${PKG_VERSION}" >&2
+            exit 1
+          fi
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
