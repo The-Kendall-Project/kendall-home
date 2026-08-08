@@ -35,3 +35,16 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
     { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", null) },
   ];
 }
+
+/**
+ * The Control-plane "home base" URL — the central architecture/status
+ * dashboard the brand wordmark in <KendallHome> links to. Same pick()-style
+ * resolution as the per-product URLs above: an explicit override (including
+ * an explicit `null`) wins, else the env var, else `null`. A `null` result
+ * means "not deployed yet" — the wordmark renders as plain, non-clickable
+ * text (the same disabled treatment as a product with no href) instead of a
+ * dead link.
+ */
+export function kendallHomeBase(override?: string | null): string | null {
+  return override !== undefined ? override : env("NEXT_PUBLIC_HOME_BASE_URL") ?? null;
+}

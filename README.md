@@ -78,3 +78,72 @@ or build-time env vars `NEXT_PUBLIC_OPS_URL` / `NEXT_PUBLIC_FOUNDRY_URL` /
 When `kendall-control`, Kendall Logix, or Context Block Studio get a public
 deployment, set the matching env var (or add its default here) and that tab
 lights up everywhere.
+
+## Brand link → "home base" (v0.4.0+)
+
+The "Kendall" wordmark links to the Control-plane home-base app once it's
+deployed. Same pattern as the product URLs above: set `NEXT_PUBLIC_HOME_BASE_URL`
+(or pass `homeBaseOverride` to `<KendallHome>`). Until then it renders as plain,
+non-clickable text — no dead link.
+
+```ini
+# .env
+NEXT_PUBLIC_HOME_BASE_URL=https://control.kendall.example
+```
+
+```tsx
+<KendallHome current="ops" homeBaseOverride="https://control.kendall.example" />
+```
+
+## Live status dots (v0.4.0+, opt-in via `showStatus`)
+
+Pass `showStatus` to have every fetchable, non-current tab show a small colored
+status dot — green (`ok`) / amber (`degraded`) / red (`down` or unreachable) /
+grey pulsing (not yet checked) — sourced from that product's own
+`` `${href}/api/v1/status` `` endpoint. Hover (or focus) a tab to see its
+metrics as a native tooltip.
+
+```tsx
+import { KendallHome } from "@kendall/home";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <KendallHome current="ops" showStatus />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+Notes:
+- **Default is off.** Omitting `showStatus` (or passing `false`) is byte-for-byte
+  the old behavior — no fetches, no client-side JS pulled in for this feature.
+- Each fetch races a 3s timeout; a slow or hung product's dot just shows
+  "down" without blocking the rest of the bar.
+- Successful responses are cached in `sessionStorage` per product for ~60s, so
+  navigating between pages in the same app/tab within that window doesn't
+  refetch every product's status on every render.
+- Expected response shape from `/api/v1/status` (a fixed contract shared with
+  the products themselves):
+  ```json
+  {
+    "system": "logix",
+    "status": "ok",
+    "version": null,
+    "metrics": [{ "label": "Active projects", "value": 12 }],
+    "checkedAt": "2026-08-08T22:14:00.000Z"
+  }
+  ```
+
+**Manual verification (no runnable app in this repo):** once a consuming app
+picks up `^0.4.0` and renders `<KendallHome current="..." showStatus />`, check
+in a browser that: (1) tabs for products with a real deployment show a dot that
+settles from grey/pulsing to green/amber/red within ~3s; (2) hovering a dot (or
+its tab) shows a tooltip with metrics like `Active projects: 12`; (3) a product
+whose API is down or slow still lets the rest of the bar settle within 3s; (4)
+reloading the page within ~60s reuses the cached dot color instantly instead of
+re-showing the grey pulse; (5) the "Kendall" wordmark is a working link once
+`NEXT_PUBLIC_HOME_BASE_URL` is set, and plain dimmed text when it isn't.
