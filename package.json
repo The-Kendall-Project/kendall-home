@@ -1,6 +1,6 @@
 {
   "name": "@kendall/home",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Kendall-Home — the shared cross-product top nav frame rendered by every Kendall app.",
   "license": "UNLICENSED",
   "type": "module",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kendallproject/kendall-home.git"
+    "url": "git+https://github.com/The-Kendall-Project/kendall-home.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

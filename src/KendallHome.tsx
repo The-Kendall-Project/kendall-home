@@ -8,7 +8,7 @@ import { kendallProducts, type ProductKey, type ProductOverrides } from "./produ
  *
  * Usage (in each app's root layout, above everything else):
  *   import { KendallHome } from "@kendall/home";
- *   <KendallHome current="ops" />   // foundry | control | dwellguide
+ *   <KendallHome current="ops" />   // foundry | control | dwellguide | logix | studio
  */
 export interface KendallHomeProps {
   /** Which product this app IS — that tab renders active (non-link). */

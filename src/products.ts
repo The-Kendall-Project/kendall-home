@@ -7,7 +7,7 @@
  * (NEXT_PUBLIC_*_URL). A product with a null URL (e.g. Control-Plane, not yet
  * deployed) renders disabled instead of a dead link.
  */
-export type ProductKey = "ops" | "builder" | "foundry" | "control" | "dwellguide";
+export type ProductKey = "ops" | "builder" | "foundry" | "control" | "dwellguide" | "logix" | "studio";
 
 export interface KendallProduct {
   key: ProductKey;
@@ -31,5 +31,7 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
     { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app") },
     { key: "control", label: "Control-Plane", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", null) },
     { key: "dwellguide", label: "DwellGuide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app") },
+    { key: "logix", label: "Kendall Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", null) },
+    { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", null) },
   ];
 }
