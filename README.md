@@ -1,5 +1,10 @@
 # @kendall/home
 
+**Kendall part number:** `KP-MODULE-HOME` — a shared internal module: every
+`KP-APP-*` app imports this one package instead of each maintaining its own nav
+bar, so improving it once improves it everywhere. See the Kendall naming
+standard (in `control-plane`'s `docs/architecture/`) for the full reasoning.
+
 The shared **cross-product top nav** ("the frame") that every Kendall app renders
 at the very top of its layout — so Ops · Foundry · Control-Plane · DwellGuide are
 reachable from anywhere, at all times.
