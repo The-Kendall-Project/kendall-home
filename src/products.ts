@@ -32,7 +32,7 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
     { key: "control", label: "Control-Plane", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", null) },
     { key: "dwellguide", label: "DwellGuide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app") },
     { key: "logix", label: "Kendall Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", null) },
-    { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", null) },
+    { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app") },
   ];
 }
 
