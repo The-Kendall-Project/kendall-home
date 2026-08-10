@@ -4,8 +4,16 @@
  *
  * URLs default to the known production deployments and can be overridden per app
  * (a) at the call site via `overrides`, or (b) by build-time env vars
- * (NEXT_PUBLIC_*_URL). A product with a null URL (e.g. Control-Plane, not yet
- * deployed) renders disabled instead of a dead link.
+ * (NEXT_PUBLIC_*_URL). A product with a null URL (not yet deployed, or a
+ * consuming app hasn't repinned to this version yet) renders disabled instead
+ * of a dead link.
+ *
+ * The `control` key is Context Warehouse (2026-08-10, ADR-011): Kendall
+ * Control's registry/governance responsibilities converge into the Context
+ * Warehouse per the portfolio architecture decision — same nav slot, same
+ * `ProductKey`/env var name (`NEXT_PUBLIC_CONTROL_URL`) to avoid a breaking
+ * rename, new label and target. `control-plane` (the architecture-dashboard
+ * repo) is a separate, still-live app — this slot no longer points to it.
  */
 export type ProductKey = "ops" | "builder" | "foundry" | "control" | "dwellguide" | "logix" | "studio";
 
@@ -29,7 +37,7 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
     { key: "ops", label: "Ops-Dashboard", href: pick("ops", "NEXT_PUBLIC_OPS_URL", "https://kendall-ops.vercel.app") },
     { key: "builder", label: "Builder", href: pick("builder", "NEXT_PUBLIC_BUILDER_URL", "https://kendall-foundry.vercel.app/builder") },
     { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app") },
-    { key: "control", label: "Control-Plane", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", null) },
+    { key: "control", label: "Context Warehouse", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", null) },
     { key: "dwellguide", label: "DwellGuide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app") },
     { key: "logix", label: "Kendall Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", null) },
     { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app") },
