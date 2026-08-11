@@ -61,14 +61,15 @@ Rules actually evidenced in the code and README, not aspirational ones:
   palette in light and dark, so it renders identically regardless of the host
   app's own CSS/Tailwind setup. Nothing in this package should come to depend
   on a consuming app's global styles.
-- **`ProductKey` must stay in sync with the real roster.** `src/products.ts`
-  defines `ProductKey` as a union (`"ops" | "builder" | "foundry" | "control"
-  | "dwellguide" | "logix" | "studio"`) and `kendallProducts()` as the single
-  list every app renders. Adding, removing, or renaming a product means
-  updating both together — see AOS-500 for the exact steps.
+- **`ProductKey` must stay in sync with the visible roster.** `src/products.ts`
+  defines `ProductKey` and `kendallProducts()` as the single ordered navigation
+  roster every app renders. Internal applications that consume the frame but
+  are not visible in the roster use `LegacyApplicationKey`, so they do not
+  create an unapproved tab. Adding, removing, or renaming a visible product
+  means updating the roster and `ProductKey` together — see AOS-500.
 - **No dead links.** A product with a `null` href (not yet deployed —
-  currently `control`, `logix`, and `studio`) renders as a disabled,
-  non-clickable tab rather than a link to nowhere. The "Kendall" brand
+  currently `boundary`) renders as a disabled, non-clickable tab rather than
+  a link to nowhere. The "Ops" suite label
   wordmark follows the same rule against `NEXT_PUBLIC_HOME_BASE_URL` /
   `homeBaseOverride`.
 - **`showStatus` must not change default behavior.** The live-status feature

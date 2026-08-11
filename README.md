@@ -6,8 +6,9 @@ bar, so improving it once improves it everywhere. See the Kendall naming
 standard (in `control-plane`'s `docs/architecture/`) for the full reasoning.
 
 The shared **cross-product top nav** ("the frame") that every Kendall app renders
-at the very top of its layout — so Ops · Foundry · Control-Plane · DwellGuide are
-reachable from anywhere, at all times.
+at the very top of its layout. The governed visible order is: Ops (suite label),
+Dashboard, Context Warehouse, Context Block Studio, Capability, Boundary, and
+Dwell Guide.
 
 It's a single React component with **self-contained styling** (scoped `<style>` +
 the Kendall palette, light & dark), so it looks identical in every app regardless
@@ -58,7 +59,7 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <KendallHome current="ops" />   {/* foundry | control | dwellguide | logix | studio */}
+        <KendallHome current="ops" />
         {children}
       </body>
     </html>
@@ -71,22 +72,23 @@ per-app difference.
 
 ## URLs
 
-Defaults: Ops → kendall-ops.vercel.app · Foundry → kendall-foundry.vercel.app ·
-DwellGuide → dwellguide.vercel.app · Control-Plane, Kendall Logix, and Context
-Block Studio → *disabled until deployed*.
+Defaults: Dashboard → kendall-ops.vercel.app · Context Warehouse →
+kp-context-warehouse.vercel.app · Context Block Studio →
+context-block-studio.vercel.app · Capability → kendall-capability.vercel.app ·
+Dwell Guide → dwellguide.vercel.app. Boundary is disabled until it has an
+approved deployment URL.
 
 Override per app, either via `<KendallHome current=… overrides={{ control: "https://…" }} />`
-or build-time env vars `NEXT_PUBLIC_OPS_URL` / `NEXT_PUBLIC_FOUNDRY_URL` /
-`NEXT_PUBLIC_CONTROL_URL` / `NEXT_PUBLIC_DWELLGUIDE_URL` / `NEXT_PUBLIC_LOGIX_URL` /
-`NEXT_PUBLIC_STUDIO_URL`.
+or build-time env vars `NEXT_PUBLIC_OPS_URL` / `NEXT_PUBLIC_CONTROL_URL` /
+`NEXT_PUBLIC_STUDIO_URL` / `NEXT_PUBLIC_CAPABILITY_URL` /
+`NEXT_PUBLIC_BOUNDARY_URL` / `NEXT_PUBLIC_DWELLGUIDE_URL`.
 
-When `kendall-control`, Kendall Logix, or Context Block Studio get a public
-deployment, set the matching env var (or add its default here) and that tab
-lights up everywhere.
+When Boundary receives an approved deployment, set `NEXT_PUBLIC_BOUNDARY_URL`
+(or add its default here) and that tab lights up everywhere.
 
 ## Brand link → "home base" (v0.4.0+)
 
-The "Kendall" wordmark links to the Control-plane home-base app once it's
+The "Ops" suite label links to the configured home-base app once it's
 deployed. Same pattern as the product URLs above: set `NEXT_PUBLIC_HOME_BASE_URL`
 (or pass `homeBaseOverride` to `<KendallHome>`). Until then it renders as plain,
 non-clickable text — no dead link.
@@ -150,5 +152,5 @@ settles from grey/pulsing to green/amber/red within ~3s; (2) hovering a dot (or
 its tab) shows a tooltip with metrics like `Active projects: 12`; (3) a product
 whose API is down or slow still lets the rest of the bar settle within 3s; (4)
 reloading the page within ~60s reuses the cached dot color instantly instead of
-re-showing the grey pulse; (5) the "Kendall" wordmark is a working link once
+re-showing the grey pulse; (5) the "Ops" suite label is a working link once
 `NEXT_PUBLIC_HOME_BASE_URL` is set, and plain dimmed text when it isn't.

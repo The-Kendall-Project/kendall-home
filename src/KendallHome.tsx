@@ -1,4 +1,4 @@
-import { kendallProducts, kendallHomeBase, type ProductKey, type ProductOverrides } from "./products";
+import { kendallProducts, kendallHomeBase, type CurrentApplicationKey, type ProductOverrides } from "./products";
 import { StatusTab } from "./StatusTab";
 
 /**
@@ -9,7 +9,7 @@ import { StatusTab } from "./StatusTab";
  *
  * Usage (in each app's root layout, above everything else):
  *   import { KendallHome } from "@kendall/home";
- *   <KendallHome current="ops" />   // foundry | control | dwellguide | logix | studio
+ *   <KendallHome current="ops" />
  *
  * Client/server split: this component itself has NO "use client" directive
  * and does no data fetching — it is fully server-renderable and behaves
@@ -24,7 +24,7 @@ import { StatusTab } from "./StatusTab";
  */
 export interface KendallHomeProps {
   /** Which product this app IS — that tab renders active (non-link). */
-  current: ProductKey;
+  current: CurrentApplicationKey;
   /** Optional per-app URL overrides (else env vars, else built-in defaults). */
   overrides?: ProductOverrides;
   /**
@@ -84,11 +84,11 @@ export function KendallHome({ current, overrides, homeBaseOverride, showStatus }
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       {homeBase ? (
         <a className="kh-brand" href={homeBase}>
-          Kendall
+          Ops
         </a>
       ) : (
         <span className="kh-brand kh-brand-disabled" title="Home base not deployed yet">
-          Kendall
+          Ops
         </span>
       )}
       <nav className="kh-tabs" aria-label="Kendall products">
