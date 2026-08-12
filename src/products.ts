@@ -8,19 +8,22 @@
  * consuming app hasn't repinned to this version yet) renders disabled instead
  * of a dead link.
  *
- * The `control` key is Context Warehouse (2026-08-10, ADR-011): Kendall
- * Control's registry/governance responsibilities converge into the Context
- * Warehouse per the portfolio architecture decision — same nav slot, same
- * `ProductKey`/env var name (`NEXT_PUBLIC_CONTROL_URL`) to avoid a breaking
- * rename, new label and target. `control-plane` (the architecture-dashboard
- * repo) is a separate, still-live app — this slot no longer points to it.
+ * The visible roster is deliberately small and ordered. Dwell Guide is the
+ * final, separated destination because it is a distinct product experience.
  */
-export type ProductKey = "ops" | "builder" | "foundry" | "control" | "dwellguide" | "logix" | "studio";
+export type ProductKey = "ops" | "control" | "foundry" | "studio" | "capability" | "logix" | "dwellguide";
+export type ProductAccent = "blue" | "orange" | "red" | "green" | "purple";
+export type ProductIconName = "gauge" | "warehouse" | "flask" | "blocks" | "graduationCap" | "network";
+export type LegacyApplicationKey = "builder" | "boundary";
+export type CurrentApplicationKey = ProductKey | LegacyApplicationKey;
 
 export interface KendallProduct {
   key: ProductKey;
   label: string;
   href: string | null;
+  icon?: ProductIconName;
+  accent?: ProductAccent;
+  separated?: boolean;
 }
 
 export type ProductOverrides = Partial<Record<ProductKey, string | null>>;
@@ -34,13 +37,13 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
   const pick = (key: ProductKey, envKey: string, fallback: string | null): string | null =>
     key in overrides ? overrides[key]! : env(envKey) ?? fallback;
   return [
-    { key: "ops", label: "Ops-Dashboard", href: pick("ops", "NEXT_PUBLIC_OPS_URL", "https://kendall-ops.vercel.app") },
-    { key: "builder", label: "Builder", href: pick("builder", "NEXT_PUBLIC_BUILDER_URL", "https://kendall-foundry.vercel.app/builder") },
-    { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app") },
-    { key: "control", label: "Context Warehouse", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", null) },
-    { key: "dwellguide", label: "DwellGuide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app") },
-    { key: "logix", label: "Kendall Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", null) },
-    { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app") },
+    { key: "ops", label: "Ops Dashboard", href: pick("ops", "NEXT_PUBLIC_OPS_URL", "https://kendall-ops.vercel.app"), icon: "gauge", accent: "blue" },
+    { key: "control", label: "Warehouse", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", "https://kp-context-warehouse.vercel.app"), icon: "warehouse", accent: "green" },
+    { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app"), icon: "flask", accent: "red" },
+    { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app"), icon: "blocks", accent: "purple" },
+    { key: "capability", label: "Capability", href: pick("capability", "NEXT_PUBLIC_CAPABILITY_URL", "https://kendall-capability.vercel.app"), icon: "graduationCap", accent: "orange" },
+    { key: "logix", label: "Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", null), icon: "network", accent: "purple" },
+    { key: "dwellguide", label: "Dwell Guide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app"), separated: true },
   ];
 }
 
