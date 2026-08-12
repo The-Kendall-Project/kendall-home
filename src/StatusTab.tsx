@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { isKendallStatusPayload, type KendallStatusLevel, type KendallStatusMetric } from "./status";
+import { ProductIcon } from "./ProductIcon";
+import type { ProductIconName } from "./products";
 
 /**
  * Client-only leaf used by <KendallHome> for one fetchable, non-current tab
@@ -52,10 +54,11 @@ export interface StatusTabProps {
   productKey: string;
   href: string;
   label: string;
+  icon?: ProductIconName;
   separated?: boolean;
 }
 
-export function StatusTab({ productKey, href, label, separated }: StatusTabProps) {
+export function StatusTab({ productKey, href, label, icon, separated }: StatusTabProps) {
   const [state, setState] = useState<DotState>("unchecked");
   const [metrics, setMetrics] = useState<KendallStatusMetric[]>([]);
 
@@ -115,7 +118,8 @@ export function StatusTab({ productKey, href, label, separated }: StatusTabProps
 
   return (
     <a className={`kh-tab${separated ? " kh-separated" : ""}`} href={href} title={title}>
-      {label}
+      {icon && <ProductIcon name={icon} />}
+      <span>{label}</span>
       <span className={`kh-dot ${dotClass}`} aria-hidden="true" />
     </a>
   );

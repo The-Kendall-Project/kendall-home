@@ -12,6 +12,8 @@
  * final, separated destination because it is a distinct product experience.
  */
 export type ProductKey = "ops" | "control" | "foundry" | "studio" | "capability" | "dwellguide";
+export type ProductAccent = "blue" | "orange" | "red" | "green" | "purple";
+export type ProductIconName = "gauge" | "warehouse" | "flask" | "blocks" | "graduationCap";
 export type LegacyApplicationKey = "builder" | "boundary" | "logix";
 export type CurrentApplicationKey = ProductKey | LegacyApplicationKey;
 
@@ -19,6 +21,8 @@ export interface KendallProduct {
   key: ProductKey;
   label: string;
   href: string | null;
+  icon?: ProductIconName;
+  accent?: ProductAccent;
   separated?: boolean;
 }
 
@@ -33,11 +37,11 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
   const pick = (key: ProductKey, envKey: string, fallback: string | null): string | null =>
     key in overrides ? overrides[key]! : env(envKey) ?? fallback;
   return [
-    { key: "ops", label: "Ops Dashboard", href: pick("ops", "NEXT_PUBLIC_OPS_URL", "https://kendall-ops.vercel.app") },
-    { key: "control", label: "Warehouse", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", "https://kp-context-warehouse.vercel.app") },
-    { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app") },
-    { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app") },
-    { key: "capability", label: "Capability", href: pick("capability", "NEXT_PUBLIC_CAPABILITY_URL", "https://kendall-capability.vercel.app") },
+    { key: "ops", label: "Ops Dashboard", href: pick("ops", "NEXT_PUBLIC_OPS_URL", "https://kendall-ops.vercel.app"), icon: "gauge", accent: "blue" },
+    { key: "control", label: "Warehouse", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", "https://kp-context-warehouse.vercel.app"), icon: "warehouse", accent: "green" },
+    { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app"), icon: "flask", accent: "red" },
+    { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app"), icon: "blocks", accent: "purple" },
+    { key: "capability", label: "Capability", href: pick("capability", "NEXT_PUBLIC_CAPABILITY_URL", "https://kendall-capability.vercel.app"), icon: "graduationCap", accent: "orange" },
     { key: "dwellguide", label: "Dwell Guide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app"), separated: true },
   ];
 }

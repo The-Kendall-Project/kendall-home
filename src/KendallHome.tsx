@@ -1,4 +1,5 @@
 import { kendallProducts, kendallHomeBase, type CurrentApplicationKey, type ProductOverrides } from "./products";
+import { ProductIcon } from "./ProductIcon";
 import { StatusTab } from "./StatusTab";
 
 /**
@@ -50,7 +51,8 @@ const CSS = `
 a.kh-brand:hover{background:rgba(255,255,255,.08);color:#FFFFFF;text-decoration:none;}
 .kh-brand.kh-brand-disabled{color:rgba(255,255,255,.72);cursor:default;}
 .kh-tabs{display:flex;flex:1;align-items:center;gap:2px;overflow-x:auto;}
-.kh-tab{display:inline-flex;align-items:center;white-space:nowrap;border-bottom:3px solid transparent;padding:10px 12px;font-size:13px;font-weight:500;color:rgba(255,255,255,.82);text-decoration:none;transition:color .12s,border-color .12s,background .12s;}
+.kh-tab{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;border-bottom:3px solid transparent;padding:10px 12px;font-size:13px;font-weight:500;color:rgba(255,255,255,.82);text-decoration:none;transition:color .12s,border-color .12s,background .12s;}
+.kh-product-icon{display:block;flex:none;color:currentColor;}
 .kh-tab:hover{background:rgba(255,255,255,.08);color:#FFFFFF;border-bottom-color:rgba(255,255,255,.45);text-decoration:none;}
 .kh-tab.kh-active{color:#FFFFFF;border-bottom-color:#FFFFFF;font-weight:700;cursor:default;}
 .kh-tab.kh-disabled{color:rgba(255,255,255,.42);cursor:default;}
@@ -83,23 +85,26 @@ export function KendallHome({ current, overrides, homeBaseOverride, showStatus }
           if (p.key === current) {
             return (
               <span key={p.key} className={`kh-tab kh-active${p.separated ? " kh-separated" : ""}`} aria-current="page">
-                {p.label}
+                {p.icon && <ProductIcon name={p.icon} />}
+                <span>{p.label}</span>
               </span>
             );
           }
           if (!p.href) {
             return (
               <span key={p.key} className={`kh-tab kh-disabled${p.separated ? " kh-separated" : ""}`} title="Not deployed yet">
-                {p.label}
+                {p.icon && <ProductIcon name={p.icon} />}
+                <span>{p.label}</span>
               </span>
             );
           }
           if (showStatus) {
-            return <StatusTab key={p.key} productKey={p.key} href={p.href} label={p.label} separated={p.separated} />;
+            return <StatusTab key={p.key} productKey={p.key} href={p.href} label={p.label} icon={p.icon} separated={p.separated} />;
           }
           return (
             <a key={p.key} className={`kh-tab${p.separated ? " kh-separated" : ""}`} href={p.href}>
-              {p.label}
+              {p.icon && <ProductIcon name={p.icon} />}
+              <span>{p.label}</span>
             </a>
           );
         })}

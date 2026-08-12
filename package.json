@@ -1,6 +1,6 @@
 {
   "name": "@kendall/home",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Kendall-Home — the shared cross-product top nav frame rendered by every Kendall app.",
   "license": "UNLICENSED",
   "type": "module",
@@ -18,6 +18,13 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.8.0"
   },
   "peerDependencies": {
     "react": ">=18"

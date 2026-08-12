@@ -58,7 +58,7 @@ Rules actually evidenced in the code and README, not aspirational ones:
 
 - **Self-contained styling.** The component ships its own scoped `<style>`
   block (the `CSS` constant in `src/KendallHome.tsx`) using the Kendall
-  palette in light and dark, so it renders identically regardless of the host
+  light-only palette, so it renders identically regardless of the host
   app's own CSS/Tailwind setup. Nothing in this package should come to depend
   on a consuming app's global styles.
 - **`ProductKey` must stay in sync with the visible roster.** `src/products.ts`

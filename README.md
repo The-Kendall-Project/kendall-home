@@ -10,6 +10,13 @@ at the very top of its layout. The governed visible order is: Kendall (brand),
 Ops Dashboard, Warehouse, Foundry, Context Block Studio, Capability, then a
 divider and Dwell Guide.
 
+The five v1 application identities are deterministic: Ops Dashboard uses a
+blue Gauge, Warehouse a green Warehouse, Foundry a red Flask, Context Block
+Studio purple Blocks, and Capability an orange Graduation Cap. These icons are
+Lucide icons with the governed 2.25 stroke and appear in the shared header in
+every consumer. Dwell Guide and Kendall Logix are intentionally outside this
+identity release.
+
 It's a single React component with **self-contained styling** (scoped `<style>` +
 the Kendall palette, light only), so it looks identical in every app regardless
 of that app's own CSS/Tailwind. Product URLs are built in (overridable).
