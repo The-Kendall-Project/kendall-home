@@ -11,10 +11,10 @@
  * The visible roster is deliberately small and ordered. Dwell Guide is the
  * final, separated destination because it is a distinct product experience.
  */
-export type ProductKey = "ops" | "control" | "foundry" | "studio" | "capability" | "dwellguide";
+export type ProductKey = "ops" | "control" | "foundry" | "studio" | "capability" | "logix" | "dwellguide";
 export type ProductAccent = "blue" | "orange" | "red" | "green" | "purple";
-export type ProductIconName = "gauge" | "warehouse" | "flask" | "blocks" | "graduationCap";
-export type LegacyApplicationKey = "builder" | "boundary" | "logix";
+export type ProductIconName = "gauge" | "warehouse" | "flask" | "blocks" | "graduationCap" | "network";
+export type LegacyApplicationKey = "builder" | "boundary";
 export type CurrentApplicationKey = ProductKey | LegacyApplicationKey;
 
 export interface KendallProduct {
@@ -42,6 +42,7 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
     { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app"), icon: "flask", accent: "red" },
     { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app"), icon: "blocks", accent: "purple" },
     { key: "capability", label: "Capability", href: pick("capability", "NEXT_PUBLIC_CAPABILITY_URL", "https://kendall-capability.vercel.app"), icon: "graduationCap", accent: "orange" },
+    { key: "logix", label: "Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", null), icon: "network", accent: "purple" },
     { key: "dwellguide", label: "Dwell Guide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app"), separated: true },
   ];
 }

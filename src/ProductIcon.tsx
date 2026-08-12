@@ -1,4 +1,4 @@
-import { Blocks, FlaskConical, Gauge, GraduationCap, Warehouse } from "lucide-react";
+import { Blocks, FlaskConical, Gauge, GraduationCap, Network, Warehouse } from "lucide-react";
 import type { ProductIconName } from "./products";
 
 const productIcons = {
@@ -6,6 +6,7 @@ const productIcons = {
   flask: FlaskConical,
   gauge: Gauge,
   graduationCap: GraduationCap,
+  network: Network,
   warehouse: Warehouse,
 };
 

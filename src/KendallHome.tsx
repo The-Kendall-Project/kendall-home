@@ -57,12 +57,14 @@ a.kh-brand:hover{background:rgba(255,255,255,.08);color:#FFFFFF;text-decoration:
 .kh-tab.kh-active{color:#FFFFFF;border-bottom-color:#FFFFFF;font-weight:700;cursor:default;}
 .kh-tab.kh-disabled{color:rgba(255,255,255,.42);cursor:default;}
 .kh-tab.kh-separated{margin-left:10px;border-left:1px solid rgba(255,255,255,.5);padding-left:20px;}
+.kh-tab:focus-visible,.kh-brand:focus-visible{outline:2px solid #FFFFFF;outline-offset:-4px;border-radius:4px;}
 .kh-dot{display:inline-block;width:6px;height:6px;margin-left:6px;border-radius:50%;background:#8B96A3;flex:none;}
 .kh-dot-ok{background:#2FA85A;}
 .kh-dot-degraded{background:#D99A1E;}
 .kh-dot-down{background:#D64545;}
 .kh-dot-unchecked{background:#8B96A3;animation:kh-pulse 1.4s ease-in-out infinite;}
 @keyframes kh-pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+@media (prefers-reduced-motion:reduce){.kh-tab{transition:none}.kh-dot-unchecked{animation:none}}
 `;
 
 export function KendallHome({ current, overrides, homeBaseOverride, showStatus }: KendallHomeProps) {
