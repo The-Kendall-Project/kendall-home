@@ -47,11 +47,11 @@ export interface KendallHomeProps {
 const CSS = `
 .kh-bar{display:flex;align-items:center;gap:2px;padding:0 12px;border-bottom:1px solid #1D477B;background:#24528C;color:#FFFFFF;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
 .kh-brand{margin-right:8px;padding:0 8px;font-size:13px;font-weight:700;letter-spacing:-.01em;color:#FFFFFF;user-select:none;text-decoration:none;}
-a.kh-brand:hover{background:rgba(255,255,255,.08);color:#FFFFFF;}
+a.kh-brand:hover{background:rgba(255,255,255,.08);color:#FFFFFF;text-decoration:none;}
 .kh-brand.kh-brand-disabled{color:rgba(255,255,255,.72);cursor:default;}
 .kh-tabs{display:flex;flex:1;align-items:center;gap:2px;overflow-x:auto;}
 .kh-tab{display:inline-flex;align-items:center;white-space:nowrap;border-bottom:3px solid transparent;padding:10px 12px;font-size:13px;font-weight:500;color:rgba(255,255,255,.82);text-decoration:none;transition:color .12s,border-color .12s,background .12s;}
-.kh-tab:hover{background:rgba(255,255,255,.08);color:#FFFFFF;border-bottom-color:rgba(255,255,255,.45);}
+.kh-tab:hover{background:rgba(255,255,255,.08);color:#FFFFFF;border-bottom-color:rgba(255,255,255,.45);text-decoration:none;}
 .kh-tab.kh-active{color:#FFFFFF;border-bottom-color:#FFFFFF;font-weight:700;cursor:default;}
 .kh-tab.kh-disabled{color:rgba(255,255,255,.42);cursor:default;}
 .kh-tab.kh-separated{margin-left:10px;border-left:1px solid rgba(255,255,255,.5);padding-left:20px;}
