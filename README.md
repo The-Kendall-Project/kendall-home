@@ -6,12 +6,12 @@ bar, so improving it once improves it everywhere. See the Kendall naming
 standard (in `control-plane`'s `docs/architecture/`) for the full reasoning.
 
 The shared **cross-product top nav** ("the frame") that every Kendall app renders
-at the very top of its layout. The governed visible order is: Ops (suite label),
-Dashboard, Context Warehouse, Context Block Studio, Capability, Boundary, and
-Dwell Guide.
+at the very top of its layout. The governed visible order is: Kendall (brand),
+Ops Dashboard, Warehouse, Foundry, Context Block Studio, Capability, then a
+divider and Dwell Guide.
 
 It's a single React component with **self-contained styling** (scoped `<style>` +
-the Kendall palette, light & dark), so it looks identical in every app regardless
+the Kendall palette, light only), so it looks identical in every app regardless
 of that app's own CSS/Tailwind. Product URLs are built in (overridable).
 
 ## Install (published to GitHub Packages)
@@ -72,23 +72,19 @@ per-app difference.
 
 ## URLs
 
-Defaults: Dashboard → kendall-ops.vercel.app · Context Warehouse →
-kp-context-warehouse.vercel.app · Context Block Studio →
+Defaults: Ops Dashboard → kendall-ops.vercel.app · Warehouse →
+kp-context-warehouse.vercel.app · Foundry → kendall-foundry.vercel.app · Context Block Studio →
 context-block-studio.vercel.app · Capability → kendall-capability.vercel.app ·
-Dwell Guide → dwellguide.vercel.app. Boundary is disabled until it has an
-approved deployment URL.
+Dwell Guide → dwellguide.vercel.app.
 
 Override per app, either via `<KendallHome current=… overrides={{ control: "https://…" }} />`
 or build-time env vars `NEXT_PUBLIC_OPS_URL` / `NEXT_PUBLIC_CONTROL_URL` /
-`NEXT_PUBLIC_STUDIO_URL` / `NEXT_PUBLIC_CAPABILITY_URL` /
-`NEXT_PUBLIC_BOUNDARY_URL` / `NEXT_PUBLIC_DWELLGUIDE_URL`.
-
-When Boundary receives an approved deployment, set `NEXT_PUBLIC_BOUNDARY_URL`
-(or add its default here) and that tab lights up everywhere.
+`NEXT_PUBLIC_FOUNDRY_URL` / `NEXT_PUBLIC_STUDIO_URL` /
+`NEXT_PUBLIC_CAPABILITY_URL` / `NEXT_PUBLIC_DWELLGUIDE_URL`.
 
 ## Brand link → "home base" (v0.4.0+)
 
-The "Ops" suite label links to the configured home-base app once it's
+The "Kendall" brand label links to the configured home-base app once it's
 deployed. Same pattern as the product URLs above: set `NEXT_PUBLIC_HOME_BASE_URL`
 (or pass `homeBaseOverride` to `<KendallHome>`). Until then it renders as plain,
 non-clickable text — no dead link.

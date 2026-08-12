@@ -52,9 +52,10 @@ export interface StatusTabProps {
   productKey: string;
   href: string;
   label: string;
+  separated?: boolean;
 }
 
-export function StatusTab({ productKey, href, label }: StatusTabProps) {
+export function StatusTab({ productKey, href, label, separated }: StatusTabProps) {
   const [state, setState] = useState<DotState>("unchecked");
   const [metrics, setMetrics] = useState<KendallStatusMetric[]>([]);
 
@@ -113,7 +114,7 @@ export function StatusTab({ productKey, href, label }: StatusTabProps) {
         : "Status unavailable";
 
   return (
-    <a className="kh-tab" href={href} title={title}>
+    <a className={`kh-tab${separated ? " kh-separated" : ""}`} href={href} title={title}>
       {label}
       <span className={`kh-dot ${dotClass}`} aria-hidden="true" />
     </a>

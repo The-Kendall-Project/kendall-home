@@ -8,18 +8,18 @@
  * consuming app hasn't repinned to this version yet) renders disabled instead
  * of a dead link.
  *
- * The visible roster is deliberately small and ordered. Internal applications
- * such as Foundry may still render the shared frame, but they do not receive a
- * product tab unless they are part of this governed navigation roster.
+ * The visible roster is deliberately small and ordered. Dwell Guide is the
+ * final, separated destination because it is a distinct product experience.
  */
-export type ProductKey = "ops" | "control" | "studio" | "capability" | "boundary" | "dwellguide";
-export type LegacyApplicationKey = "builder" | "foundry" | "logix";
+export type ProductKey = "ops" | "control" | "foundry" | "studio" | "capability" | "dwellguide";
+export type LegacyApplicationKey = "builder" | "boundary" | "logix";
 export type CurrentApplicationKey = ProductKey | LegacyApplicationKey;
 
 export interface KendallProduct {
   key: ProductKey;
   label: string;
   href: string | null;
+  separated?: boolean;
 }
 
 export type ProductOverrides = Partial<Record<ProductKey, string | null>>;
@@ -33,12 +33,12 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
   const pick = (key: ProductKey, envKey: string, fallback: string | null): string | null =>
     key in overrides ? overrides[key]! : env(envKey) ?? fallback;
   return [
-    { key: "ops", label: "Dashboard", href: pick("ops", "NEXT_PUBLIC_OPS_URL", "https://kendall-ops.vercel.app") },
-    { key: "control", label: "Context Warehouse", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", "https://kp-context-warehouse.vercel.app") },
+    { key: "ops", label: "Ops Dashboard", href: pick("ops", "NEXT_PUBLIC_OPS_URL", "https://kendall-ops.vercel.app") },
+    { key: "control", label: "Warehouse", href: pick("control", "NEXT_PUBLIC_CONTROL_URL", "https://kp-context-warehouse.vercel.app") },
+    { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app") },
     { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app") },
     { key: "capability", label: "Capability", href: pick("capability", "NEXT_PUBLIC_CAPABILITY_URL", "https://kendall-capability.vercel.app") },
-    { key: "boundary", label: "Boundary", href: pick("boundary", "NEXT_PUBLIC_BOUNDARY_URL", null) },
-    { key: "dwellguide", label: "Dwell Guide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app") },
+    { key: "dwellguide", label: "Dwell Guide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app"), separated: true },
   ];
 }
 
