@@ -42,7 +42,7 @@ export function kendallProducts(overrides: ProductOverrides = {}): KendallProduc
     { key: "foundry", label: "Foundry", href: pick("foundry", "NEXT_PUBLIC_FOUNDRY_URL", "https://kendall-foundry.vercel.app"), icon: "flask", accent: "red" },
     { key: "studio", label: "Context Block Studio", href: pick("studio", "NEXT_PUBLIC_STUDIO_URL", "https://context-block-studio.vercel.app"), icon: "blocks", accent: "purple" },
     { key: "capability", label: "Capability", href: pick("capability", "NEXT_PUBLIC_CAPABILITY_URL", "https://kendall-capability.vercel.app"), icon: "graduationCap", accent: "orange" },
-    { key: "logix", label: "Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", null), icon: "network", accent: "purple" },
+    { key: "logix", label: "Logix", href: pick("logix", "NEXT_PUBLIC_LOGIX_URL", "https://kendall-logix.vercel.app"), icon: "network", accent: "purple" },
     { key: "dwellguide", label: "Dwell Guide", href: pick("dwellguide", "NEXT_PUBLIC_DWELLGUIDE_URL", "https://dwellguide.vercel.app"), separated: true },
   ];
 }
